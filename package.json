@@ -1,6 +1,6 @@
 {
   "name": "objectkv",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "source/objectkv.js",
   "license": "MIT",
   "description": "lightweight in-memory key-value database",
