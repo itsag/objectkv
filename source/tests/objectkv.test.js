@@ -1,6 +1,6 @@
-// npx jest ./source/tests/datastore.test.js
+// npx jest ./source/tests/objectkv.test.js
 
-const { createStore } = require("../datastore");
+const { createStore } = require("../objectkv");
 
 describe("createStore", () => {
   let dummyStore;

@@ -1,10 +1,10 @@
 {
-  "name": "datastorejs",
-  "version": "1.0.0",
-  "main": "source/datastore.js",
+  "name": "objectkv",
+  "version": "0.1.0",
+  "main": "source/objectkv.js",
   "license": "MIT",
-  "description": "synchronous in-memory key-value database",
-  "repository": "git@github.com:itsag/datastorejs.git",
+  "description": "lightweight in-memory key-value database",
+  "repository": "git@github.com:itsag/objectkv.git",
   "author": "Ajay Gupta",
   "private": false,
   "scripts": {
@@ -18,7 +18,7 @@
     "jest": "^29.5.0"
   },
   "keywords": [
-    "datastore",
+    "objectkv",
     "database",
     "in-memory",
     "key-value"

@@ -1,6 +1,6 @@
 /**
  * @method createStore
- * @description Creates a new datastore.
+ * @description Creates a new store.
  */
 const createStore = () => {
   // The Store
