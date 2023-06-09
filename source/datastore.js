@@ -2,38 +2,36 @@
  * @method createStore
  * @description Creates a new datastore.
  */
-export const createStore = () => {
-  // This data store
-  let store = {};
+const createStore = () => {
+  // The Store
+  const store = {};
 
   /**
-   * @method get
-   * @description Gets an item from the store.
-   * @param {string} key Name of the item to get
-   * @example storeInstance.get("name")
+   * @method add
+   * @description Adds an item to the store with the given key
+   * @param {string} key Name of the item to identify it with
+   * @param {any} value The item being stored
+   * @example instance.add("name", "John Doe")
    */
-  const get = (key) => {
+  const add = (key, value) => {
+    store = { ...store, [key]: value };
+  };
+
+  /**
+   * @method find
+   * @description Finds and returns an item that matches the given key
+   * @param {string} key Name of the item to find
+   * @example instance.find("name")
+   */
+  const find = (key) => {
     return store[key];
   };
 
   /**
-   * @method set
-   * @description Set an item in the store.
-   * @param {string} key Name of the item to identify it with.
-   * @param {any} value The item being stored.
-   * @example storeInstance.set("name", "John Doe")
-   */
-  const set = (key, value) => {
-    store[key] = value;
-
-    return store;
-  };
-
-  /**
    * @method remove
-   * @description Remove an item from the store.
-   * @param {string} key Name of the item to remove.
-   * @example storeInstance.remove("name")
+   * @description Remove an item from the store
+   * @param {string} key Name of the item to remove
+   * @example instance.remove("name")
    */
   const remove = (key) => {
     const keys = Object.keys(store);
@@ -49,19 +47,8 @@ export const createStore = () => {
     store = updatedStore;
   };
 
-  /**
-   * @method empty
-   * @description Completely empties the store.
-   * @example storeInstance.empty()
-   */
-  const empty = () => {
-    store = {};
-  };
-
-  return {
-    get,
-    set,
-    remove,
-    empty,
-  };
+  return { add, find, remove };
 };
+
+// Exports
+exports.createStore = createStore;
