@@ -1,0 +1,31 @@
+{
+  "name": "datastorejs",
+  "version": "1.0.0",
+  "main": "source/datastore.js",
+  "license": "MIT",
+  "description": "synchronous in-memory key-value database",
+  "repository": "git@github.com:itsag/datastorejs.git",
+  "author": "Ajay Gupta",
+  "private": false,
+  "scripts": {
+    "build": "node_modules/.bin/tsc",
+    "lint": "node_modules/.bin/eslint . --ext .ts",
+    "test": "node_modules/.bin/jest .",
+    "prepublishOnly": "node_modules/.bin/tsc"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "eslint": "^8.9.0",
+    "typescript": "^4.5.5"
+  },
+  "keywords": [
+    "datastore",
+    "database",
+    "in-memory",
+    "key-value"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

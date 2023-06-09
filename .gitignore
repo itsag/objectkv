@@ -1,0 +1,31 @@
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
+dist
+
+# misc
+.DS_Store
+
+# environment variables
+.env
+.env.*
+!.env.template
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# caches
+.eslintcache
+
+# ides
+.idea
+.vscode
+.vs
