@@ -8,10 +8,12 @@ describe("createStore", () => {
   beforeEach(() => {
     dummyStore = createStore();
 
-    dummyStore.add("key1", "value1");
-    dummyStore.add("key2", "value2");
-    dummyStore.add("key3", "value3");
-    dummyStore.add("key4", "value4");
+    dummyStore.addMany([
+      { key1: "value1" },
+      { key2: "value2" },
+      { key3: "value3" },
+      { key4: "value4" },
+    ]);
   });
 
   describe("find", () => {
@@ -26,13 +28,27 @@ describe("createStore", () => {
     });
   });
 
-  describe("add", () => {
+  describe("addOne", () => {
     const expectedOutput = "value0";
 
     it("should add an item to the store with the given key", () => {
-      dummyStore.add("key0", expectedOutput);
+      dummyStore.addOne("key0", expectedOutput);
 
       expect(dummyStore.find("key0")).toEqual(expectedOutput);
+    });
+  });
+
+  describe("addMany", () => {
+    it("should add multiple items to the store with the given key-value pairs", () => {
+      dummyStore.addMany([
+        { user1: "John Doe" },
+        { user2: "Selena Miles" },
+        { user3: "Jane Davis" },
+      ]);
+
+      expect(dummyStore.find("user1")).toEqual("John Doe");
+      expect(dummyStore.find("user2")).toEqual("Selena Miles");
+      expect(dummyStore.find("user3")).toEqual("Jane Davis");
     });
   });
 
@@ -45,7 +61,7 @@ describe("createStore", () => {
   });
 
   describe("subscriptions", () => {
-    describe("add (subscribed)", () => {
+    describe("addOne (subscribed)", () => {
       it("should run subscriptions on add operation", () => {
         const callback1 = jest.fn();
         const callback2 = jest.fn();
@@ -53,10 +69,29 @@ describe("createStore", () => {
         dummyStore.subscribe(callback1);
         dummyStore.subscribe(callback2);
 
-        dummyStore.add("key0", "value0");
+        dummyStore.addOne("key0", "value0");
 
-        expect(callback1).toHaveBeenCalled();
-        expect(callback2).toHaveBeenCalled();
+        expect(callback1).toHaveBeenCalledTimes(1);
+        expect(callback2).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe("addMany (subscribed)", () => {
+      it("should run subscriptions on addMany operation", () => {
+        const callback1 = jest.fn();
+        const callback2 = jest.fn();
+
+        dummyStore.subscribe(callback1);
+        dummyStore.subscribe(callback2);
+
+        dummyStore.addMany([
+          { user1: "John Doe" },
+          { user2: "Selena Miles" },
+          { user3: "Jane Davis" },
+        ]);
+
+        expect(callback1).toHaveBeenCalledTimes(1);
+        expect(callback2).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -70,8 +105,8 @@ describe("createStore", () => {
 
         dummyStore.remove("key1");
 
-        expect(callback1).toHaveBeenCalled();
-        expect(callback2).toHaveBeenCalled();
+        expect(callback1).toHaveBeenCalledTimes(1);
+        expect(callback2).toHaveBeenCalledTimes(1);
       });
     });
   });

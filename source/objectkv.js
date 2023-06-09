@@ -36,15 +36,36 @@ const createStore = () => {
   };
 
   /**
-   * @method add
+   * @method addOne
    * @description Adds an item to the store with the given key
    * @param {string} key Name of the item to identify it with
    * @param {any} value The item being stored
    * @example
-   * instance.add("name", "John Doe")
+   * instance.addOne("name", "John Doe")
    */
-  const add = (key, value) => {
+  const addOne = (key, value) => {
     store[key] = value;
+
+    runSubscriptions(subscriptions, store);
+  };
+
+  /**
+   * @method addMany
+   * @description Adds multiple items to the store with the given key-value pairs
+   * @param {Array<{key: value}>} keyValuePairs Array of key value pairs
+   * @example
+   * instance.addMany([
+   *   { user1: "John Doe" },
+   *   { user2: "Selena Miles" },
+   *   { user3: "Jane Davis" }
+   * ])
+   */
+  const addMany = (keyValuePairs) => {
+    keyValuePairs.forEach((kv) => {
+      const [key] = Object.keys(kv);
+
+      store[key] = kv[key];
+    });
 
     runSubscriptions(subscriptions, store);
   };
@@ -83,7 +104,13 @@ const createStore = () => {
     runSubscriptions(subscriptions, store);
   };
 
-  return { add, find, remove, subscribe };
+  return {
+    addOne,
+    addMany,
+    find,
+    remove,
+    subscribe,
+  };
 };
 
 // Exports
