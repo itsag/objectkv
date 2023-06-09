@@ -4,7 +4,7 @@
  */
 const createStore = () => {
   // The Store
-  const store = {};
+  let store = {};
 
   /**
    * @method add
