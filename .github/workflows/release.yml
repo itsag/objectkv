@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    name: Publish Package
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Use Node 18.x
+      - name: Use Node 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+          cache-dependency-path: yarn.lock
+          cache: "yarn"
+
+      # Install Packages
+      - name: Install Packages
+        run: yarn install --frozen-lockfile
+
+      # Run Lint
+      - name: Run Lint
+        run: yarn lint
+
+      # Run Unit Tests
+      - name: Run Unit Tests
+        run: yarn test
+
+      # Create Package
+      - name: Create Package
+        run: yarn pack
+
+      # Upload Artifact
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: "*.tgz"
+
+      # Publish to NPM
+      - name: Publish to NPM
+        run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}"

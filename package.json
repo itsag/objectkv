@@ -23,6 +23,14 @@
     "in-memory",
     "key-value"
   ],
+  "files": [
+    ".gitignore",
+    "LICENSE.md",
+    "README.md",
+    "source",
+    "package.json",
+    "yarn.lock"
+  ],
   "publishConfig": {
     "access": "public"
   }
