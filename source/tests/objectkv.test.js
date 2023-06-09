@@ -43,4 +43,36 @@ describe("createStore", () => {
       expect(dummyStore.find("key1")).toBeUndefined();
     });
   });
+
+  describe("subscriptions", () => {
+    describe("add (subscribed)", () => {
+      it("should run subscriptions on add operation", () => {
+        const callback1 = jest.fn();
+        const callback2 = jest.fn();
+
+        dummyStore.subscribe(callback1);
+        dummyStore.subscribe(callback2);
+
+        dummyStore.add("key0", "value0");
+
+        expect(callback1).toHaveBeenCalled();
+        expect(callback2).toHaveBeenCalled();
+      });
+    });
+
+    describe("remove (subscribed)", () => {
+      it("should run subscriptions on remove operation", () => {
+        const callback1 = jest.fn();
+        const callback2 = jest.fn();
+
+        dummyStore.subscribe(callback1);
+        dummyStore.subscribe(callback2);
+
+        dummyStore.remove("key1");
+
+        expect(callback1).toHaveBeenCalled();
+        expect(callback2).toHaveBeenCalled();
+      });
+    });
+  });
 });
