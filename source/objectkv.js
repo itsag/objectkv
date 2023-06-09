@@ -17,7 +17,7 @@ const runSubscriptions = (subscriptions, updatedStore) => {
  */
 const createStore = () => {
   // The Store
-  let store = {};
+  const store = {};
 
   // Subscriptions
   const subscriptions = [];
@@ -99,24 +99,29 @@ const createStore = () => {
   };
 
   /**
-   * @method remove
+   * @method removeOne
    * @description Remove an item from the store
    * @param {string} key Name of the item to remove
    * @example
-   * instance.remove("name")
+   * instance.removeOne("name")
    */
-  const remove = (key) => {
-    const keys = Object.keys(store);
+  const removeOne = (key) => {
+    delete store[key];
 
-    const updatedStore = {};
+    runSubscriptions(subscriptions, store);
+  };
 
+  /**
+   * @method removeMany
+   * @description Removes multiple items from the store with the given keys
+   * @param {string} key Name of the item to remove
+   * @example
+   * instance.removeMany(["user1", "user2"])
+   */
+  const removeMany = (keys) => {
     keys.forEach((k) => {
-      if (k !== key) {
-        updatedStore[k] = store[k];
-      }
+      delete store[k];
     });
-
-    store = updatedStore;
 
     runSubscriptions(subscriptions, store);
   };
@@ -126,7 +131,8 @@ const createStore = () => {
     addMany,
     findOne,
     findMany,
-    remove,
+    removeOne,
+    removeMany,
     subscribe,
   };
 };

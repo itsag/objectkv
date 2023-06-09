@@ -63,62 +63,84 @@ describe("createStore", () => {
     });
   });
 
-  describe("remove", () => {
+  describe("removeOne", () => {
     it("should remove the item that matches the given key", () => {
-      dummyStore.remove("key1");
+      dummyStore.removeOne("key1");
 
       expect(dummyStore.findOne("key1")).toBeUndefined();
     });
   });
 
-  describe("subscriptions", () => {
-    describe("addOne (subscribed)", () => {
-      it("should run subscriptions on add operation", () => {
-        const callback1 = jest.fn();
-        const callback2 = jest.fn();
+  describe("removeMany", () => {
+    it("should remove multiple items from the store with the given keys", () => {
+      dummyStore.removeMany(["key1", "key2"]);
 
-        dummyStore.subscribe(callback1);
-        dummyStore.subscribe(callback2);
-
-        dummyStore.addOne("key0", "value0");
-
-        expect(callback1).toHaveBeenCalledTimes(1);
-        expect(callback2).toHaveBeenCalledTimes(1);
-      });
+      expect(dummyStore.findOne("key1")).toBeUndefined();
+      expect(dummyStore.findOne("key2")).toBeUndefined();
     });
+  });
 
-    describe("addMany (subscribed)", () => {
-      it("should run subscriptions on addMany operation", () => {
-        const callback1 = jest.fn();
-        const callback2 = jest.fn();
+  describe("subscriptions - addOne", () => {
+    it("should run subscriptions on addOne operation", () => {
+      const callback1 = jest.fn();
+      const callback2 = jest.fn();
 
-        dummyStore.subscribe(callback1);
-        dummyStore.subscribe(callback2);
+      dummyStore.subscribe(callback1);
+      dummyStore.subscribe(callback2);
 
-        dummyStore.addMany([
-          { user1: "John Doe" },
-          { user2: "Selena Miles" },
-          { user3: "Jane Davis" },
-        ]);
+      dummyStore.addOne("key0", "value0");
 
-        expect(callback1).toHaveBeenCalledTimes(1);
-        expect(callback2).toHaveBeenCalledTimes(1);
-      });
+      expect(callback1).toHaveBeenCalledTimes(1);
+      expect(callback2).toHaveBeenCalledTimes(1);
     });
+  });
 
-    describe("remove (subscribed)", () => {
-      it("should run subscriptions on remove operation", () => {
-        const callback1 = jest.fn();
-        const callback2 = jest.fn();
+  describe("subscriptions - addMany", () => {
+    it("should run subscriptions on addMany operation", () => {
+      const callback1 = jest.fn();
+      const callback2 = jest.fn();
 
-        dummyStore.subscribe(callback1);
-        dummyStore.subscribe(callback2);
+      dummyStore.subscribe(callback1);
+      dummyStore.subscribe(callback2);
 
-        dummyStore.remove("key1");
+      dummyStore.addMany([
+        { user1: "John Doe" },
+        { user2: "Selena Miles" },
+        { user3: "Jane Davis" },
+      ]);
 
-        expect(callback1).toHaveBeenCalledTimes(1);
-        expect(callback2).toHaveBeenCalledTimes(1);
-      });
+      expect(callback1).toHaveBeenCalledTimes(1);
+      expect(callback2).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("subscriptions - removeOne", () => {
+    it("should run subscriptions on removeOne operation", () => {
+      const callback1 = jest.fn();
+      const callback2 = jest.fn();
+
+      dummyStore.subscribe(callback1);
+      dummyStore.subscribe(callback2);
+
+      dummyStore.removeOne("key1");
+
+      expect(callback1).toHaveBeenCalledTimes(1);
+      expect(callback2).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("subscriptions - removeMany", () => {
+    it("should run subscriptions on removeMany operation", () => {
+      const callback1 = jest.fn();
+      const callback2 = jest.fn();
+
+      dummyStore.subscribe(callback1);
+      dummyStore.subscribe(callback2);
+
+      dummyStore.removeMany(["key1", "key2"]);
+
+      expect(callback1).toHaveBeenCalledTimes(1);
+      expect(callback2).toHaveBeenCalledTimes(1);
     });
   });
 });
