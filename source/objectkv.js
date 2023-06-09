@@ -71,14 +71,31 @@ const createStore = () => {
   };
 
   /**
-   * @method find
+   * @method findOne
    * @description Finds and returns an item that matches the given key
    * @param {string} key Name of the item to find
    * @example
-   * instance.find("name")
+   * instance.findOne("name")
    */
-  const find = (key) => {
+  const findOne = (key) => {
     return store[key];
+  };
+
+  /**
+   * @method findMany
+   * @description Finds multiple items from the store with the given keys and returns the key-value pairs
+   * @param {Array<string>} keys Names of the items to find
+   * @example
+   * instance.findMany(["user1", "user2", "user3"])
+   */
+  const findMany = (keys) => {
+    const result = {};
+
+    keys.forEach((k) => {
+      result[k] = store[k];
+    });
+
+    return result;
   };
 
   /**
@@ -107,7 +124,8 @@ const createStore = () => {
   return {
     addOne,
     addMany,
-    find,
+    findOne,
+    findMany,
     remove,
     subscribe,
   };

@@ -16,15 +16,26 @@ describe("createStore", () => {
     ]);
   });
 
-  describe("find", () => {
+  describe("findOne", () => {
     const expectedOutput = "value1";
 
     it("should find and return the item that matches the given key", () => {
-      expect(dummyStore.find("key1")).toEqual(expectedOutput);
+      expect(dummyStore.findOne("key1")).toEqual(expectedOutput);
     });
 
     it("should return undefined for keys that dont exist", () => {
-      expect(dummyStore.find("aNonExistentKey")).toBeUndefined();
+      expect(dummyStore.findOne("aNonExistentKey")).toBeUndefined();
+    });
+  });
+
+  describe("findMany", () => {
+    const expectedOutput = {
+      key1: "value1",
+      key2: "value2",
+    };
+
+    it("should find multiple items from the store with the given keys and return the key-value pairs", () => {
+      expect(dummyStore.findMany(["key1", "key2"])).toEqual(expectedOutput);
     });
   });
 
@@ -34,7 +45,7 @@ describe("createStore", () => {
     it("should add an item to the store with the given key", () => {
       dummyStore.addOne("key0", expectedOutput);
 
-      expect(dummyStore.find("key0")).toEqual(expectedOutput);
+      expect(dummyStore.findOne("key0")).toEqual(expectedOutput);
     });
   });
 
@@ -46,9 +57,9 @@ describe("createStore", () => {
         { user3: "Jane Davis" },
       ]);
 
-      expect(dummyStore.find("user1")).toEqual("John Doe");
-      expect(dummyStore.find("user2")).toEqual("Selena Miles");
-      expect(dummyStore.find("user3")).toEqual("Jane Davis");
+      expect(dummyStore.findOne("user1")).toEqual("John Doe");
+      expect(dummyStore.findOne("user2")).toEqual("Selena Miles");
+      expect(dummyStore.findOne("user3")).toEqual("Jane Davis");
     });
   });
 
@@ -56,7 +67,7 @@ describe("createStore", () => {
     it("should remove the item that matches the given key", () => {
       dummyStore.remove("key1");
 
-      expect(dummyStore.find("key1")).toBeUndefined();
+      expect(dummyStore.findOne("key1")).toBeUndefined();
     });
   });
 
