@@ -1,12 +1,18 @@
 {
   "name": "objectkv",
-  "version": "0.2.0",
+  "description": "a lightweight in-memory key-value database",
+  "version": "0.3.0",
   "main": "source/objectkv.js",
   "license": "MIT",
-  "description": "lightweight in-memory key-value database",
-  "repository": "git@github.com:itsag/objectkv.git",
-  "author": "Ajay Gupta",
-  "private": false,
+  "author": {
+    "name": "Ajay Gupta",
+    "url": "https://github.com/itsag"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:itsag/objectkv.git"
+  },
+  "homepage": "https://github.com/itsag/objectkv/wiki/Documentation",
   "scripts": {
     "lint": "eslint .",
     "test": "jest ."
