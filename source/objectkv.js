@@ -6,8 +6,8 @@
  * @param {Store} updatedStore
  */
 const runSubscriptions = (subscriptions, updatedStore) => {
-  subscriptions.map((callback) => {
-    return callback(updatedStore);
+  subscriptions.forEach((callback) => {
+    callback(updatedStore);
   });
 };
 
@@ -17,10 +17,10 @@ const runSubscriptions = (subscriptions, updatedStore) => {
  */
 const createStore = () => {
   // The Store
-  const store = {};
+  const store = new Map();
 
   // Subscriptions
-  const subscriptions = [];
+  const subscriptions = new Array();
 
   /**
    * @method subscribe
@@ -36,104 +36,67 @@ const createStore = () => {
   };
 
   /**
-   * @method addOne
-   * @description Adds an item to the store with the given key
-   * @param {string} key Name of the item to identify it with
-   * @param {any} value The item being stored
+   * @method set
+   * @description Sets the value for a given key in the store.
+   * @param {string} key Name of the item to identify it with.
+   * @param {any} value The item being stored.
    * @example
-   * instance.addOne("name", "John Doe")
+   * instance.set("name", "John Doe");
    */
-  const addOne = (key, value) => {
-    store[key] = value;
+  const set = (key, value) => {
+    store.set(key, value);
 
     runSubscriptions(subscriptions, store);
   };
 
   /**
-   * @method addMany
-   * @description Adds multiple items to the store with the given key-value pairs
-   * @param {Array<{key: value}>} keyValuePairs Array of key value pairs
+   * @method get
+   * @description Retrieves the value associated with a given key from the store.
+   * @param {string} key Name of the item to find.
+   * @returns {any} The value associated with the key, or undefined if the key doesn't exist.
    * @example
-   * instance.addMany([
-   *   { user1: "John Doe" },
-   *   { user2: "Selena Miles" },
-   *   { user3: "Jane Davis" }
-   * ])
+   * const name = instance.get("name");
    */
-  const addMany = (keyValuePairs) => {
-    keyValuePairs.forEach((kv) => {
-      const [key] = Object.keys(kv);
-
-      store[key] = kv[key];
-    });
-
-    runSubscriptions(subscriptions, store);
+  const get = (key) => {
+    return store.get(key);
   };
 
   /**
-   * @method findOne
-   * @description Finds and returns an item that matches the given key
-   * @param {string} key Name of the item to find
+   * @method del
+   * @description Removes an item from the store based on the given key.
+   * @param {string} key Name of the item to remove.
+   * @returns {boolean} True if the item was removed, false if the key doesn't exist.
    * @example
-   * instance.findOne("name")
+   * const removed = instance.del("name");
    */
-  const findOne = (key) => {
-    return store[key];
-  };
+  const del = (key) => {
+    const result = store.delete(key);
 
-  /**
-   * @method findMany
-   * @description Finds multiple items from the store with the given keys and returns the key-value pairs
-   * @param {Array<string>} keys Names of the items to find
-   * @example
-   * instance.findMany(["user1", "user2", "user3"])
-   */
-  const findMany = (keys) => {
-    const result = {};
-
-    keys.forEach((k) => {
-      result[k] = store[k];
-    });
+    if (result) {
+      runSubscriptions(subscriptions, store);
+    }
 
     return result;
   };
 
   /**
-   * @method removeOne
-   * @description Remove an item from the store
-   * @param {string} key Name of the item to remove
+   * @method clear
+   * @description Empties the store
    * @example
-   * instance.removeOne("name")
+   * instance.clear();
    */
-  const removeOne = (key) => {
-    delete store[key];
-
-    runSubscriptions(subscriptions, store);
-  };
-
-  /**
-   * @method removeMany
-   * @description Removes multiple items from the store with the given keys
-   * @param {string} key Name of the item to remove
-   * @example
-   * instance.removeMany(["user1", "user2"])
-   */
-  const removeMany = (keys) => {
-    keys.forEach((k) => {
-      delete store[k];
-    });
+  const clear = () => {
+    store.clear();
 
     runSubscriptions(subscriptions, store);
   };
 
   return {
-    addOne,
-    addMany,
-    findOne,
-    findMany,
-    removeOne,
-    removeMany,
     subscribe,
+    set,
+    get,
+    del,
+    clear,
   };
 };
 
