@@ -1,7 +1,7 @@
 {
   "name": "objectkv",
   "description": "a lightweight in-memory key-value database",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "source/objectkv.js",
   "license": "MIT",
   "author": {
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git@github.com:itsag/objectkv.git"
   },
-  "homepage": "https://github.com/itsag/objectkv/wiki/Documentation",
+  "homepage": "https://github.com/itsag/objectkv",
   "scripts": {
     "lint": "eslint .",
     "test": "jest ."
