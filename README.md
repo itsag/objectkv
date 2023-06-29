@@ -1,8 +1,6 @@
 # ObjectKV
 
-**A lightweight in-memory key-value database for javascript.**
-
-The ObjectKV is a simple and lightweight in-memory key-value database with subscription capabilities. It allows you to store and retrieve data while notifying subscribed functions whenever the store is updated.
+A simple and lightweight in-memory key-value store with subscription capabilities. It allows you to store and retrieve data while notifying subscribed functions whenever the store is updated.
 
 ## Installation
 
@@ -118,7 +116,7 @@ Store updated: Map {}
 
 ## Contributing
 
-Contributions to ObjectKV are always welcome! If you find a bug or want to suggest an improvement, please open an issue or submit a pull request to the repository: [https://github.com/itsag/objectkv](https://github.com/itsag/objectkv)
+Contributions to ObjectKV are always welcome! If you find a bug or want to suggest an improvement, please [open an issue](https://github.com/itsag/objectkv/issues) or [submit a pull request](https://github.com/itsag/objectkv/pulls) to the repository.
 
 ## License
 
