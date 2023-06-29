@@ -1,7 +1,7 @@
 {
   "name": "objectkv",
   "description": "a lightweight in-memory key-value store",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "source/objectkv.js",
   "license": "MIT",
   "author": {
